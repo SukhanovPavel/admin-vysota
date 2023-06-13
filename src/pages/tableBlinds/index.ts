@@ -1,0 +1,1 @@
+export {TableBlindsPage} from "./page";

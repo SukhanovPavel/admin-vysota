@@ -1,0 +1,1 @@
+export {TableWindowsPage} from "./page";
