@@ -1,6 +1,20 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import type { InputRef } from 'antd';
-import {Button, Form, Input, Popconfirm, Select, Space, Spin, Table, Tag} from 'antd';
+import { DownOutlined } from '@ant-design/icons'
+import {
+    Badge,
+    Button,
+    Dropdown,
+    Form,
+    Input,
+    Popconfirm,
+    Select,
+    Space,
+    Spin,
+    Table,
+    TableColumnsType,
+    Tag
+} from 'antd';
 import type { FormInstance } from 'antd/es/form';
 import {Order, addOrder, setClients} from "../../store/slices/clientsSlice";
 import {useDispatch, useSelector} from "react-redux";
@@ -149,6 +163,53 @@ export const PageLayout: React.FC = ({title}) => {
     // const supabase = getStaticProps().then(res => res);
 
     const dispatch = useDispatch();
+
+    const items = [
+        { key: '1', label: 'Action 1' },
+        { key: '2', label: 'Action 2' },
+    ];
+    const expandedRowRender = () => {
+        const columns: TableColumnsType<ExpandedDataType> = [
+            { title: '', dataIndex: 'date', key: 'date' },
+            { title: 'Месяц 1', dataIndex: 'name1', key: 'name1' },
+            { title: 'Месяц 2', dataIndex: 'name2', key: 'name2' },
+            { title: 'Месяц 3', dataIndex: 'name3', key: 'name3', render: () => <Badge status="success" text='ef' /> },
+            {
+                title: 'Status',
+                key: 'state',
+                render: () => <Badge status="success" text="Оплачено" />,
+            },
+            { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
+            {
+                title: 'Action',
+                dataIndex: 'operation',
+                key: 'operation',
+                render: () => (
+                    <Space size="middle">
+                        <a>Pause</a>
+                        <a>Stop</a>
+                        <Dropdown menu={{ items }}>
+                            <a>
+                                More <DownOutlined />
+                            </a>
+                        </Dropdown>
+                    </Space>
+                ),
+            },
+        ];
+        const data = [];
+        for (let i = 0; i < 1; ++i) {
+            data.push({
+                key: i.toString(),
+                date: 'Рассрочка',
+                name1: '10000',
+                name2: '10000',
+                name3: '10000',
+                upgradeNum: 'Upgraded: 56',
+            });
+        }
+        return <Table columns={columns} dataSource={data} pagination={false} />;
+    };
 
     const initialColumns = [
         {
@@ -365,34 +426,16 @@ export const PageLayout: React.FC = ({title}) => {
             .select('*')
 
         if (error) console.log("error", error);
-        // else return vysota;
-        // else setData(vysota);
         return vysota;
     };
     const addData = async (newData) => {
         const { data, error } = await supabase
             .from('vysota')
             .insert( newData)
-        // let { data: vysota } = await supabase
-        //     .from('vysota')
-        //     .select('id')
 
         if (error) console.log("error", error);
         else console.log(`Data ${data} added successfully`);
     };
-
-
-    // const updateData = async (updData, ind) => {
-    //     const { data: order, error } = await supabase
-    //         .from('vysota')
-    //         .update(updData)
-    //         .eq('id', ind)
-    //         // .select('*');
-    //
-    //
-    //     if (error) console.log("error", error);
-    //     else console.log(`Data ${order} updated successfully`);
-    // }
 
     useEffect(() => {
         async function getResult() {
@@ -424,6 +467,7 @@ export const PageLayout: React.FC = ({title}) => {
     return (
             orders.length ? <Table
                 components={components}
+                expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
                 rowClassName={() => 'editable-row'}
                 bordered
                 dataSource={orders}

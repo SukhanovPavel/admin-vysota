@@ -1,7 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../index';
-import {act} from "react-dom/test-utils";
+import {supabase} from "../../lib/api";
 
 export type Order = {
     id: string;
@@ -22,7 +21,23 @@ export type Order = {
 
 const months = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",]
 
-const initialState: Order[] = [];
+const initialState = [];
+
+// const initialState: { orders: Order[], status: string, error: null } = {
+//     orders: [],
+//     status: 'idle',
+//     error: null
+// };
+
+// export const fetchData = createAsyncThunk('clients/fetchData', async (): Order[] => {
+//     let { data: vysota, error } = await supabase
+//         .from('vysota')
+//         .select('*')
+//
+//     if (error) console.log("error", error);
+//     return vysota;
+// })
+
 export const clientsSlice = createSlice({
 
     name: 'clients',
