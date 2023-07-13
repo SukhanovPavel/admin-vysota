@@ -1,13 +1,14 @@
-import {TablePage} from "./pages/table";
-
+import React from "react";
 import './App.css'
+import {AppLayout} from "./shared/Layout/AppLayout";
+import {PageLayout} from "./shared/PageLayout/PageLayout";
 
 function App() {
 
   return (
-    <>
-        <TablePage />
-    </>
+      <AppLayout>
+          <PageLayout title="Все заказы:"/>
+      </AppLayout>
   )
 }
 

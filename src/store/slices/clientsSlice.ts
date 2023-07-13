@@ -21,22 +21,22 @@ export type Order = {
 
 const months = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",]
 
-const initialState = [];
+// const initialState = [];
 
-// const initialState: { orders: Order[], status: string, error: null } = {
-//     orders: [],
-//     status: 'idle',
-//     error: null
-// };
+const initialState: { orders: Order[], status: string, error: null } = {
+    orders: [],
+    status: 'idle',
+    error: null
+};
 
-// export const fetchData = createAsyncThunk('clients/fetchData', async (): Order[] => {
-//     let { data: vysota, error } = await supabase
-//         .from('vysota')
-//         .select('*')
-//
-//     if (error) console.log("error", error);
-//     return vysota;
-// })
+export const fetchData = createAsyncThunk('clients/fetchData', async (): Order[] => {
+    let { data: vysota, error } = await supabase
+        .from('vysota')
+        .select('*')
+
+    if (error) console.log("error", error);
+    return vysota;
+})
 
 export const clientsSlice = createSlice({
 
@@ -86,3 +86,8 @@ export const {
 } = clientsSlice.actions;
 
 export default clientsSlice.reducer;
+
+export const selectAllOrders = state => state.clients;
+
+export const selectPostById = (state, clientId) =>
+    state.clients.find(client => client.id === clientId);

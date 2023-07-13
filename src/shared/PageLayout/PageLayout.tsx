@@ -16,7 +16,7 @@ import {
     Tag
 } from 'antd';
 import type { FormInstance } from 'antd/es/form';
-import {Order, addOrder, setClients} from "../../store/slices/clientsSlice";
+import {Order, addOrder, setClients, selectAllOrders} from "../../store/slices/clientsSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store";
 import {createClient} from "@supabase/supabase-js";
@@ -329,7 +329,8 @@ export const PageLayout: React.FC = ({title}) => {
     ];
 
 
-    const orders: Order[] = useSelector((state: RootState) => state.clients);
+    // const orders: Order[] = useSelector((state: RootState) => state.clients);
+    const orders: Order[] = useSelector(selectAllOrders);
     const [count, setCount] = useState<number>(null);
 
     const months = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",]
@@ -361,9 +362,7 @@ export const PageLayout: React.FC = ({title}) => {
 
     const handleSave = async (row: Order) => {
         const newData = [...orders];
-        // const dataForIndex = [...newData]
         const index = newData.findIndex((item) => row.id === item.key);
-        console.log(row)
         const item = newData[index];
         newData.splice(index, 1, {
             ...item,
