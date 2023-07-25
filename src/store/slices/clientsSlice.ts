@@ -15,6 +15,9 @@ export type Order = {
     price: string;
     prePrice: string;
     debt: string;
+    date1?: string;
+    date2?: string;
+    date3?: string;
     address: string;
     img?: string;
 }
@@ -45,6 +48,9 @@ export const clientsSlice = createSlice({
     initialState,
 
     reducers: {
+
+        getDebts: (state: Order[], {payload}) => state.map(item =>
+            item.id === payload.id && {date1: item.date1, date2: item.date2, date3: item.date3}),
 
         setClients: ( _, action: PayloadAction<Order[]>) => action.payload,
 
@@ -83,6 +89,7 @@ export const clientsSlice = createSlice({
 export const {
     setClients,
     addOrder,
+    getDebts,
 } = clientsSlice.actions;
 
 export default clientsSlice.reducer;

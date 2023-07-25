@@ -16,10 +16,8 @@ import {
     Tag
 } from 'antd';
 import type { FormInstance } from 'antd/es/form';
-import {Order, addOrder, setClients, selectAllOrders} from "../../store/slices/clientsSlice";
+import {Order, addOrder, setClients, selectAllOrders, getDebts} from "../../store/slices/clientsSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store";
-import {createClient} from "@supabase/supabase-js";
 
 import {supabase} from "../../lib/api";
 
@@ -169,46 +167,47 @@ export const PageLayout: React.FC = ({title}) => {
         { key: '2', label: 'Action 2' },
     ];
     const expandedRowRender = () => {
-        const columns: TableColumnsType<ExpandedDataType> = [
-            { title: '', dataIndex: 'date', key: 'date' },
-            { title: 'Месяц 1', dataIndex: 'name1', key: 'name1' },
-            { title: 'Месяц 2', dataIndex: 'name2', key: 'name2' },
-            { title: 'Месяц 3', dataIndex: 'name3', key: 'name3', render: () => <Badge status="success" text='ef' /> },
+        // const columns: TableColumnsType<ExpandedDataType>
+        const columns: TableColumnsType<Order>= [
+            // { title: '', dataIndex: 'date', key: 'date' },
+            { title: 'Месяц 1', dataIndex: 'date1', key: 'date1' },
+            { title: 'Месяц 2', dataIndex: 'date2', key: 'date2' },
+            { title: 'Месяц 3', dataIndex: 'date3', key: 'date3' },
             {
                 title: 'Status',
                 key: 'state',
                 render: () => <Badge status="success" text="Оплачено" />,
             },
-            { title: 'Upgrade Status', dataIndex: 'upgradeNum', key: 'upgradeNum' },
-            {
-                title: 'Action',
-                dataIndex: 'operation',
-                key: 'operation',
-                render: () => (
-                    <Space size="middle">
-                        <a>Pause</a>
-                        <a>Stop</a>
-                        <Dropdown menu={{ items }}>
-                            <a>
-                                More <DownOutlined />
-                            </a>
-                        </Dropdown>
-                    </Space>
-                ),
-            },
+            // {
+            //     title: 'Action',
+            //     dataIndex: 'operation',
+            //     key: 'operation',
+            //     render: () => (
+            //         <Space size="middle">
+            //             <a>Pause</a>
+            //             <a>Stop</a>
+            //             <Dropdown menu={{ items }}>
+            //                 <a>
+            //                     More <DownOutlined />
+            //                 </a>
+            //             </Dropdown>
+            //         </Space>
+            //     ),
+            // },
         ];
         const data = [];
+        // const orders: Order[] = useSelector(selectAllOrders);
         for (let i = 0; i < 1; ++i) {
             data.push({
                 key: i.toString(),
                 date: 'Рассрочка',
-                name1: '10000',
+                date1: '10000',
                 name2: '10000',
                 name3: '10000',
                 upgradeNum: 'Upgraded: 56',
             });
         }
-        return <Table columns={columns} dataSource={data} pagination={false} />;
+        return <Table columns={columns} dataSource={orders} pagination={false} />;
     };
 
     const initialColumns = [
