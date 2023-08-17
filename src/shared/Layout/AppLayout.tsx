@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import {Link} from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,31 +29,17 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('Заявки', '1', <PieChartOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-        ]),
-    getItem('Доп монтажи', '2', <DesktopOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-        ]),
-    getItem('Рекламации', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Мой календарь', 'sub2', <TeamOutlined />, [
-        getItem('Team 1', '6'),
-        getItem('Team 2', '8')
-    ]),
-    getItem('Задачи', '9', <FileOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
-    getItem('Сотрудники', '10', <FileOutlined />),
+    getItem('Информационная панель', '1',<Link to={'/'}> <PieChartOutlined /></Link>),
+    getItem('Замеры', '2',<Link to={'/'}> <PieChartOutlined /></Link>),
+    getItem('Заказы', '3', <Link to={'/all'}> <PieChartOutlined /> </Link>),
+    getItem('Клиенты', '4',<Link to={'/'}> <PieChartOutlined /></Link>),
+    getItem('Монтажи потолки', '5',<Link to={'/'}> <DesktopOutlined /></Link>),
+    getItem('Монтажи окна', '6',<Link to={'/'}> <DesktopOutlined /></Link>),
+    getItem('Рекламации', '7',<Link to={'/'}> <UserOutlined /></Link>),
+    getItem('Мой календарь', '8',<Link to={'/'}> <TeamOutlined /></Link>),
+    getItem('Задачи', '9',<Link to={'/'}> <FileOutlined /></Link>),
+    getItem('Сотрудники', '10',<Link to={'/'}> <TeamOutlined /></Link>),
+    getItem('Дилеры', '11',<Link to={'/'}> <TeamOutlined /></Link>),
 ];
 
 type Props = {
