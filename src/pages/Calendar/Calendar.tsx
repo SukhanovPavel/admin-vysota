@@ -48,6 +48,7 @@ const Calendar = () => {
             <div>
                 <FullCalendar
                     plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+                    locale={'ru'}
                     headerToolbar={{
 
                         left: 'prev,next today',
